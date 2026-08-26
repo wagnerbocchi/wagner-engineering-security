@@ -1,0 +1,20 @@
+{
+  "name": "wagner-personal",
+  "interface": {
+    "displayName": "Wagner Personal"
+  },
+  "plugins": [
+    {
+      "name": "wagner-engineering-security",
+      "source": {
+        "source": "local",
+        "path": "./plugins/wagner-engineering-security"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Security"
+    }
+  ]
+}

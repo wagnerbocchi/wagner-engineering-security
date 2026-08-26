@@ -1,0 +1,40 @@
+{
+  "name": "wagner-engineering-security",
+  "version": "1.0.0",
+  "description": "Software engineering, offensive security, AI red teaming, detection engineering, incident response and SIEM/SOAR product workflows.",
+  "author": {
+    "name": "Bocchi Company",
+    "email": "contact@bocchi.company",
+    "url": "https://github.com/wagnerbocchi"
+  },
+  "keywords": [
+    "software-engineering",
+    "cybersecurity",
+    "pentest",
+    "red-team",
+    "ai-red-team",
+    "detection-engineering",
+    "incident-response",
+    "siem",
+    "soar",
+    "devops"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Wagner Engineering & Security",
+    "shortDescription": "Engineering, Red Team, AI Security and SIEM/SOAR workflows",
+    "longDescription": "Technical workflows for software engineering, pentesting and red teaming, AI red teaming, detection engineering, DevOps, incident response and development of SIEM/SOAR platforms.",
+    "developerName": "Bocchi Company",
+    "category": "Security",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Review this codebase from engineering and security perspectives.",
+      "Help me run an authorized security assessment.",
+      "Design or improve a SIEM/SOAR architecture."
+    ]
+  }
+}
