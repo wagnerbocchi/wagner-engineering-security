@@ -1,12 +1,12 @@
 ---
 name: python-scripting
 description: >
-  Python para automação, CLIs, integrações HTTP, parsing, processamento de dados, concorrência,
-  testes e ferramentas internas. Use quando Python for o meio principal da solução. Não use para
-  ofensiva/pentest, AI red team ou backend FastAPI completo; prefira as skills especializadas.
+  Use quando a tarefa principal for script, CLI ou automação Python: parsing, processamento de dados, integração HTTP, concorrência ou ferramenta interna. Para serviço FastAPI completo use fastapi-backend; para avaliação ofensiva use a skill de segurança pertinente.
 ---
 
 # Python Scripting & Automation
+
+Responda em PT-BR técnico, com evidência, exemplos aplicáveis e trade-offs quando relevantes.
 
 ## Defaults preferidos
 - Python moderno com `pyproject.toml`.
@@ -35,13 +35,14 @@ description: >
 Código completo ou patch, comandos de setup/run/test, estrutura de arquivos quando relevante,
 e notas de operação/observabilidade.
 
-## Recursos
-- `references/tooling.md`
-- `references/automation.md`
+## Falhas e contratos de automação
+- Reutilize gerenciador, dependências e convenções do projeto; um script stdlib não exige novo framework de CLI ou migração para uv.
+- Diferencie timeout de conexão de resultado remoto desconhecido. Retry de write exige garantia da operação/provider e reconciliação quando o resultado é ambíguo.
+- Feche clients/streams, limite concorrência e propague cancelamento. Streaming e paginação precisam de limites de memória e detecção de cursor repetido.
+- Trate subprocess com argumentos separados, timeout e retorno explícito; credenciais não devem aparecer em logs ou mensagens de exceção.
+- Valide input malformado, página vazia/repetida, 429/timeout, redelivery e códigos de saída pertinentes. Preserve stdout de máquina e envie diagnóstico a stderr.
 
-## Verificações finais
-- Confirme que a resposta atende ao objetivo real, não só às palavras-chave.
-- Declare suposições que possam alterar a solução.
-- Quando versões, APIs, CVEs, padrões ou comportamento de produto puderem ter mudado, valide em documentação atual antes de afirmar.
-- Em mudanças de produção, inclua rollback e validação pós-mudança.
-- Prefira exemplos executáveis, comandos completos e critérios objetivos de sucesso.
+## Recursos
+
+- Para escolher tooling compatível com o projeto: [tooling](references/tooling.md).
+- Para HTTP, idempotência e retry: [automation](references/automation.md).

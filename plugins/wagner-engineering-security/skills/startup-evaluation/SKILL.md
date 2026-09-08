@@ -1,12 +1,12 @@
 ---
 name: startup-evaluation
 description: >
-  Avaliação estruturada de startup/projeto em ideação: clareza do problema, evidência, cliente,
-  adoção, disposição a pagar ou métrica equivalente, riscos e próximos experimentos. Use para pitch,
-  hackathon, aceleração, customer discovery e pareceres comparáveis.
+  Use quando a tarefa for avaliar hipótese de negócio, pitch, customer discovery, piloto, adoção ou viabilidade de startup/projeto. Para arquitetura técnica ou implementação do produto use software-engineering ou siem-soar-development.
 ---
 
 # Startup / Project Evaluation
+
+Responda em PT-BR técnico, com evidência, exemplos aplicáveis e trade-offs quando relevantes.
 
 ## Entradas
 Pitch/canvas/entrevistas, público-alvo, problema, solução proposta, evidências, modelo de negócio/adoção e contexto do programa.
@@ -26,12 +26,13 @@ quando falta evidência do problema.
 ## Saída
 Pontos fortes, lacunas, riscos, próximos experimentos e parecer: avançar / iterar / repensar hipótese.
 
-## Recursos
-- `references/framework.md`
+## Contexto de produto de segurança
+- Se a avaliação for da Bocchi Company/Sigmaward, diferencie usuário analista, operador, comprador e responsável pelo risco; não presuma que certificação ou capacidade técnica valida demanda.
+- Compare custo de integração, cobertura/qualidade dos dados, confiança para automatizar resposta, isolamento, tempo até valor e custo operacional. EPS sozinho não demonstra benefício de negócio.
+- Explicite hipótese de piloto: baseline, fluxo alvo, métrica observável, critério de sucesso, responsável e decisão posterior. Não invente clientes, receita ou métricas de tração.
+- Compare construir/comprar e alternativas de adoção quando forem parte da pergunta; apresente trade-offs antes do parecer.
+- Consulte fontes atuais quando citar mercado, concorrência ou preços, registrando data e separando dado observado de estimativa.
 
-## Verificações finais
-- Confirme que a resposta atende ao objetivo real, não só às palavras-chave.
-- Declare suposições que possam alterar a solução.
-- Quando versões, APIs, CVEs, padrões ou comportamento de produto puderem ter mudado, valide em documentação atual antes de afirmar.
-- Em mudanças de produção, inclua rollback e validação pós-mudança.
-- Prefira exemplos executáveis, comandos completos e critérios objetivos de sucesso.
+## Recursos
+
+- Para organizar evidências de problema, adoção e experimentos: [framework](references/framework.md).

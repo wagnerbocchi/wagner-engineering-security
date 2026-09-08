@@ -1,7 +1,7 @@
 {
   "name": "wagner-engineering-security",
-  "version": "1.0.0",
-  "description": "Software engineering, offensive security, AI red teaming, detection engineering, incident response and SIEM/SOAR product workflows.",
+  "version": "1.1.0",
+  "description": "Skills técnicas em PT-BR para engenharia, segurança ofensiva, IAM, vulnerabilidades, hunting e desenvolvimento do Sigmaward SIEM/SOAR.",
   "author": {
     "name": "Bocchi Company",
     "email": "contact@bocchi.company",
@@ -17,13 +17,20 @@
     "incident-response",
     "siem",
     "soar",
-    "devops"
+    "devops",
+    "api-security",
+    "cloud-iam",
+    "active-directory",
+    "vulnerability-management",
+    "threat-hunting",
+    "bash",
+    "sigmaward"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Wagner Engineering & Security",
-    "shortDescription": "Engineering, Red Team, AI Security and SIEM/SOAR workflows",
-    "longDescription": "Technical workflows for software engineering, pentesting and red teaming, AI red teaming, detection engineering, DevOps, incident response and development of SIEM/SOAR platforms.",
+    "shortDescription": "Engenharia, cibersegurança e Sigmaward SIEM/SOAR",
+    "longDescription": "19 skills técnicas em PT-BR para engenharia Python/Bash e FastAPI, DevOps, pentest, segurança de APIs/AD/IAM/IA, gestão de vulnerabilidades, hunting, detecção, resposta a incidentes e desenvolvimento de SIEM/SOAR próprio.",
     "developerName": "Bocchi Company",
     "category": "Security",
     "capabilities": [
@@ -32,9 +39,9 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Review this codebase from engineering and security perspectives.",
-      "Help me run an authorized security assessment.",
-      "Design or improve a SIEM/SOAR architecture."
+      "Revise este código com foco em correção, segurança e evidências de teste.",
+      "Conduza esta avaliação de segurança dentro do escopo autorizado.",
+      "Melhore este componente do Sigmaward com isolamento de tenant e recuperação de falhas."
     ]
   }
 }

@@ -24,8 +24,11 @@ if manifest.get("skills") != "./skills/":
     errors.append("plugin.json: skills deve ser ./skills/")
 
 skills = sorted((PLUGIN / "skills").glob("*/SKILL.md"))
-if len(skills) != 13:
-    errors.append(f"esperadas 13 skills; encontradas {len(skills)}")
+if not skills:
+    errors.append("nenhuma skill encontrada")
+for folder in sorted((PLUGIN / "skills").iterdir()):
+    if folder.is_dir() and not folder.name.startswith(".") and not (folder / "SKILL.md").is_file():
+        errors.append(f"SKILL.md ausente: {folder}")
 
 for skill_md in skills:
     text = skill_md.read_text(encoding="utf-8")
@@ -37,13 +40,17 @@ for skill_md in skills:
     nm = re.search(r"^name:\s*([^\n]+)", fm, re.M)
     if not nm or nm.group(1).strip() != skill_md.parent.name:
         errors.append(f"name/frontmatter divergente: {skill_md}")
-    if not re.search(r"^description:\s*", fm, re.M):
-        errors.append(f"description ausente: {skill_md}")
-
-    low = text.lower()
-    for term in REMOVED:
-        if term in low:
-            errors.append(f"termo legado '{term}' em {skill_md}")
+    if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", skill_md.parent.name) or len(skill_md.parent.name) > 64:
+        errors.append(f"nome de skill inválido: {skill_md.parent.name}")
+    # The package uses plain/quoted scalars or indented block descriptions.
+    # This is a packaging check, not a general YAML parser.
+    dm = re.search(r"^description:[ \t]*([^\n]*)(?:\n((?:[ \t]+[^\n]*(?:\n|$))*))?", fm, re.M)
+    description = ""
+    if dm:
+        first = dm.group(1).strip()
+        description = (dm.group(2) or "").strip() if first in (">", "|", ">-", "|-") else first.strip("\"'")
+    if not description or len(description) > 1024:
+        errors.append(f"description vazia, ausente ou longa demais: {skill_md}")
 
     for ref in re.findall(r"references/([A-Za-z0-9._-]+\.md)", text):
         target = skill_md.parent / "references" / ref
@@ -51,10 +58,17 @@ for skill_md in skills:
             errors.append(f"referência ausente: {skill_md.parent.name}/references/{ref}")
 
 for path in PLUGIN.rglob("*.md"):
-    low = path.read_text(encoding="utf-8").lower()
+    content = path.read_text(encoding="utf-8")
+    low = content.lower()
     for term in REMOVED:
         if term in low:
             errors.append(f"termo legado '{term}' em {path}")
+    for link in re.findall(r"\[[^\]\n]*\]\(([^)\s]+)\)", content):
+        if re.match(r"[a-zA-Z][a-zA-Z0-9+.-]*:", link) or link.startswith("#"):
+            continue
+        relative = link.split("#", 1)[0]
+        if relative and not (path.parent / relative).exists():
+            errors.append(f"referência ausente: {path}: {relative}")
 
 entries = [p for p in marketplace.get("plugins", []) if p.get("name") == "wagner-engineering-security"]
 if len(entries) != 1:

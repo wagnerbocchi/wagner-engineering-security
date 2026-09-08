@@ -1,13 +1,12 @@
 ---
 name: siem-soar-development
 description: >
-  Desenvolvimento de produto SIEM/SOAR: ingestão, normalização, schema de eventos, storage/indexing,
-  query/search, correlation engine, rule execution, cases, orchestration/playbooks, connectors,
-  multi-tenancy, RBAC, audit, APIs, observabilidade e escala. Use quando a tarefa principal for construir
-  ou evoluir uma plataforma SIEM/SOAR própria. Para escrever detecções use detection-engineering.
+  Use quando a tarefa for construir ou evoluir o Sigmaward ou outra plataforma SIEM/SOAR própria: ingestão, schemas, busca, engine de correlação, cases, playbooks, connectors e isolamento multi-tenant. Para autoria de regras use detection-engineering.
 ---
 
 # SIEM/SOAR Product Engineering
+
+Responda em PT-BR técnico, com evidência, exemplos aplicáveis e trade-offs quando relevantes.
 
 ## Perfil
 Trate o usuário como engenheiro que desenvolve a própria plataforma. Priorize arquitetura implementável,
@@ -47,15 +46,17 @@ Collectors/Agents -> Ingestion Gateway -> Queue/Stream -> Normalize/Enrich -> Ho
 - connector secrets protegidos e rotacionáveis;
 - playbooks com retries, timeout, compensation/rollback e human approval para ações críticas.
 
-## Recursos
-- `references/architecture.md`
-- `references/ingestion.md`
-- `references/orchestration.md`
-- `references/testing.md`
+## Invariantes do Sigmaward
+- Use Sigmaward como contexto de produto em construção, sem presumir broker, banco, cloud ou integrações existentes. Comece por contratos observados no repositório.
+- Tenant vem da identidade autenticada e de contexto interno validado; rejeite divergência do envelope. Propague escopo em storage, cache, filas, busca, export e credenciais do connector.
+- Defina event time, ingest time, atraso, dedupe e schema/parser version. Replay precisa indicar se reavalia regras/enrichment atuais ou reproduz versões históricas.
+- Não prometa exactly-once de efeitos externos só porque a fila deduplica. Modele crash após a chamada como resultado desconhecido, com reconciliação por operação estável.
+- Faça ações críticas respeitarem política/autorização do produto. Compensação pode falhar e não equivale a desfazer todo efeito.
+- Entregue contrato, estados, limites por tenant, falhas exercitadas e sinais operacionais. Leia as referências apenas para o componente em mudança.
 
-## Verificações finais
-- Confirme que a resposta atende ao objetivo real, não só às palavras-chave.
-- Declare suposições que possam alterar a solução.
-- Quando versões, APIs, CVEs, padrões ou comportamento de produto puderem ter mudado, valide em documentação atual antes de afirmar.
-- Em mudanças de produção, inclua rollback e validação pós-mudança.
-- Prefira exemplos executáveis, comandos completos e critérios objetivos de sucesso.
+## Recursos
+
+- Para limites dos componentes: [architecture](references/architecture.md).
+- Para envelope, timestamps, replay e backpressure: [ingestion](references/ingestion.md).
+- Para estados, crash recovery e connectors: [orchestration](references/orchestration.md).
+- Para provar isolamento, dedupe e resiliência: [testing](references/testing.md).

@@ -1,11 +1,12 @@
 ---
 name: docker-containers
 description: >
-  Dockerfile, BuildKit, Compose, registries, imagens, runtime hardening, troubleshooting e decisão
-  entre container único, Compose e Kubernetes. Use para problemas centrados em containers.
+  Use quando o problema principal for Dockerfile, BuildKit, imagem, Compose, runtime de container, volume, rede ou escolha de orquestração. Para pipeline de release use devops-cicd.
 ---
 
 # Docker & Containers
+
+Responda em PT-BR técnico, com evidência, exemplos aplicáveis e trade-offs quando relevantes.
 
 ## Workflow
 1. Reproduza o problema com versão e comando exatos.
@@ -27,13 +28,14 @@ description: >
 Escolha Compose, Kubernetes ou outra solução por requisitos de HA, scheduling, escala, policy,
 operabilidade e experiência do time — não por número arbitrário de serviços.
 
-## Recursos
-- `references/docker.md`
-- `references/compose-kubernetes.md`
+## Diagnóstico e prova de operação
+- Diferencie build, startup, readiness, tráfego e persistência. Verifique exit code, OOM, sinais, UID/GID e mount antes de reconstruir ou recriar.
+- Compare imagem por digest e configuração efetiva. Sanitize inspect/env/logs antes de compartilhá-los; eles podem conter secrets.
+- Valide SIGTERM e drain com trabalho em curso, health da aplicação e acesso a volumes com o usuário de runtime.
+- Antes de substituir workload com estado, identifique volumes reais, backup/restauração e migração. Comandos como remoção de volumes não pertencem a um diagnóstico rotineiro.
+- Entregue comando de reprodução, hipótese sustentada e verificação de rede, health e persistência após a mudança.
 
-## Verificações finais
-- Confirme que a resposta atende ao objetivo real, não só às palavras-chave.
-- Declare suposições que possam alterar a solução.
-- Quando versões, APIs, CVEs, padrões ou comportamento de produto puderem ter mudado, valide em documentação atual antes de afirmar.
-- Em mudanças de produção, inclua rollback e validação pós-mudança.
-- Prefira exemplos executáveis, comandos completos e critérios objetivos de sucesso.
+## Recursos
+
+- Para build/runtime e coleta de sinais: [docker](references/docker.md).
+- Para escolher orquestração por requisito: [compose-kubernetes](references/compose-kubernetes.md).

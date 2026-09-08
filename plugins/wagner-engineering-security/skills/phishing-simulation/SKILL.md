@@ -1,12 +1,12 @@
 ---
 name: phishing-simulation
 description: >
-  Simulações autorizadas de phishing e social engineering para avaliação de controles e awareness:
-  desenho de campanha, Gophish, landing pages seguras, deliverability, SPF/DKIM/DMARC, métricas e reporting.
-  Use somente para campanhas controladas/ROE definidos.
+  Use quando a tarefa for desenhar ou avaliar simulação autorizada de phishing/social engineering: público, pretexto, infraestrutura, landing, métricas ou controles. Não aciona campanhas reais sem autorização de envio.
 ---
 
 # Phishing Simulation
+
+Responda em PT-BR técnico, com evidência, exemplos aplicáveis e trade-offs quando relevantes.
 
 ## Princípios
 - autorização, público e janela definidos;
@@ -28,13 +28,14 @@ description: >
 Delivery, open quando tecnicamente confiável, click, report rate, time-to-report, credential-attempt signal
 sem coletar credencial, e detecção/resposta dos controles. Evite usar uma única taxa como julgamento de pessoas.
 
-## Recursos
-- `references/campaign.md`
-- `references/deliverability.md`
+## Experimento e validade das métricas
+- Criar material e configurar ambiente de teste não autoriza envio a participantes; respeite autorização de campanha existente sem solicitá-la novamente.
+- Separe eventos de scanners/prefetch de interação humana; click/open isolados podem superestimar comportamento do participante.
+- Faça tracking com identificadores opacos e acesso restrito. Não coloque e-mail, senha ou token em URL; submissão pode registrar um booleano sem transmitir o conteúdo digitado.
+- Se a hipótese mede eficácia do gateway, allowlist ampla altera o experimento. Documente controles relaxados quando a campanha tiver objetivo de awareness.
+- Entregue objetivo, ROE, mensagem/landing revisáveis, dry-run, stop conditions e métricas com denominadores e limitações.
 
-## Verificações finais
-- Confirme que a resposta atende ao objetivo real, não só às palavras-chave.
-- Declare suposições que possam alterar a solução.
-- Quando versões, APIs, CVEs, padrões ou comportamento de produto puderem ter mudado, valide em documentação atual antes de afirmar.
-- Em mudanças de produção, inclua rollback e validação pós-mudança.
-- Prefira exemplos executáveis, comandos completos e critérios objetivos de sucesso.
+## Recursos
+
+- Para público, hipótese e interrupção: [campaign](references/campaign.md).
+- Para DNS, entrega e interpretação de controles: [deliverability](references/deliverability.md).

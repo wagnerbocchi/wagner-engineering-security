@@ -1,13 +1,12 @@
 ---
 name: fastapi-backend
 description: >
-  Backend com FastAPI, Pydantic v2, ASGI, APIs REST/webhooks, autenticação, persistência,
-  background jobs, performance e testes. Use quando a tarefa principal envolver desenho ou
-  implementação de serviço FastAPI. Para Python genérico use python-scripting; para arquitetura
-  multi-serviço use software-engineering.
+  Use quando a tarefa principal for implementar ou corrigir serviço FastAPI/ASGI, contratos Pydantic, persistência, autorização, webhooks ou jobs. Para testes ofensivos da API use api-security-testing; para Python genérico use python-scripting.
 ---
 
 # FastAPI Backend
+
+Responda em PT-BR técnico, com evidência, exemplos aplicáveis e trade-offs quando relevantes.
 
 ## Entradas úteis
 - versão de Python/FastAPI/Pydantic;
@@ -38,13 +37,14 @@ description: >
 - evitar SSRF em URLs controladas pelo usuário;
 - limites de upload/body e timeouts.
 
-## Recursos
-- `references/architecture.md`
-- `references/jobs.md`
+## Consistência em APIs e jobs
+- Derive identidade/tenant de contexto autenticado e vincule-os à consulta, cache e job; campo tenant_id enviado pelo cliente não estabelece autoridade.
+- Propague deadline/cancelamento e use clients/pools com ciclo de vida explícito. Código blocking em função async continua bloqueando o event loop.
+- Se escrita no banco precisa gerar mensagem, avalie outbox na mesma transação; publicar apenas depois do commit ainda deixa uma janela de perda.
+- Para POST repetível, use chave por tenant/operação e fingerprint do payload com unicidade atômica. Mesma chave e payload retorna resultado estável; payload diferente exige conflito definido.
+- Teste redelivery concorrente, crash após commit e autorização revogada antes da execução/entrega, conforme a política do produto.
 
-## Verificações finais
-- Confirme que a resposta atende ao objetivo real, não só às palavras-chave.
-- Declare suposições que possam alterar a solução.
-- Quando versões, APIs, CVEs, padrões ou comportamento de produto puderem ter mudado, valide em documentação atual antes de afirmar.
-- Em mudanças de produção, inclua rollback e validação pós-mudança.
-- Prefira exemplos executáveis, comandos completos e critérios objetivos de sucesso.
+## Recursos
+
+- Para estrutura, lifespan e readiness: [architecture](references/architecture.md).
+- Para atomicidade, durabilidade e execução de workers: [jobs](references/jobs.md).

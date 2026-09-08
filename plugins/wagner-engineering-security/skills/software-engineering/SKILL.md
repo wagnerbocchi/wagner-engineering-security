@@ -1,11 +1,7 @@
 ---
 name: software-engineering
 description: >
-  Engenharia de software para arquitetura, design de sistemas, revisão de código, refatoração,
-  testes, performance, observabilidade, APIs, modelagem de domínio e decisões técnicas entre
-  linguagens/frameworks. Use quando a tarefa principal for engenharia de software ampla. Não use
-  como primeira opção quando o problema for especificamente Python, FastAPI, CI/CD, containers,
-  pentest, AI red team ou SIEM/SOAR; nesses casos prefira a skill especializada.
+  Use quando a tarefa for decisão arquitetural transversal, design de sistemas, refatoração ou revisão entre componentes/linguagens sem uma skill de domínio mais específica. Para Python, FastAPI, CI/CD, containers ou SIEM/SOAR prefira a especializada.
 ---
 
 # Software Engineering
@@ -41,14 +37,15 @@ exemplos reais e foco em sistemas operáveis em produção. Não explique fundam
 Conforme a tarefa: ADR, diagrama textual, API contract, patch de código, plano de refatoração,
 matriz de trade-offs, estratégia de testes e checklist de rollout.
 
-## Recursos
-- `references/architecture.md`
-- `references/testing-review.md`
-- `references/security-performance.md`
+## Trabalho sobre o sistema real
+- Leia contratos, callers, testes e configuração antes de propor nova camada ou stack. Distinga estado atual, requisito e hipótese.
+- Em bug, estabeleça reprodução e hipóteses ordenadas antes da mudança. Em refatoração, defina comportamento preservado e verificação que detecte regressão relevante.
+- Declare unidade de transação e invariantes de concorrência; chamadas remotas não participam automaticamente da transação local.
+- Em review, apresente achado com localização, gatilho, impacto e correção proposta. Separe risco demonstrado de melhoria opcional.
+- Em produção, entregue sequência, compatibilidade, rollback e checklist pós-mudança proporcionais ao risco; mantenha alterações no fluxo de revisão autorizado.
 
-## Verificações finais
-- Confirme que a resposta atende ao objetivo real, não só às palavras-chave.
-- Declare suposições que possam alterar a solução.
-- Quando versões, APIs, CVEs, padrões ou comportamento de produto puderem ter mudado, valide em documentação atual antes de afirmar.
-- Em mudanças de produção, inclua rollback e validação pós-mudança.
-- Prefira exemplos executáveis, comandos completos e critérios objetivos de sucesso.
+## Recursos
+
+- Para consistência e decisões de componentes: [architecture](references/architecture.md).
+- Para revisão e verificação orientadas ao risco: [testing-review](references/testing-review.md).
+- Para fronteiras de confiança e medições: [security-performance](references/security-performance.md).

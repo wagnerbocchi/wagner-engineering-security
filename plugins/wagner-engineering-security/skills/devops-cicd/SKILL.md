@@ -1,12 +1,12 @@
 ---
 name: devops-cicd
 description: >
-  CI/CD, GitOps, Infrastructure as Code, supply-chain security, secrets, rollout e rollback.
-  Use quando a tarefa principal for entrega, automação de infraestrutura ou pipeline. Não use para
-  Dockerfile/Compose isolado ou arquitetura de aplicação, onde as skills específicas são melhores.
+  Use quando a tarefa principal for pipeline CI/CD, GitOps, IaC, build/proveniência ou rollout de infraestrutura. Para Dockerfile/Compose isolado use docker-containers; para avaliação de permissões cloud use cloud-iam-security.
 ---
 
 # DevOps & CI/CD
+
+Responda em PT-BR técnico, com evidência, exemplos aplicáveis e trade-offs quando relevantes.
 
 ## Workflow
 1. Identifique SCM, runner, ambientes e restrições de deploy.
@@ -27,13 +27,14 @@ description: >
 GitHub Actions, GitLab CI, Jenkins, Terraform/OpenTofu, Ansible, Pulumi, Argo CD, Flux,
 Helm, Kustomize, SOPS, Vault, External Secrets, Trivy, Grype, Semgrep, Checkov, Syft, Cosign.
 
-## Recursos
-- `references/pipelines.md`
-- `references/supply-chain.md`
+## Fronteiras de execução e promoção
+- Separe código de PR/fork não confiável de jobs com secrets, OIDC privilegiado ou runners persistentes. Cache e artefatos também atravessam essa fronteira; origem não confiável não deve alimentar execução privilegiada sem validação apropriada.
+- Vincule identidade federada ao repositório/ref/ambiente e ao evento autorizado. Um token curto ainda pode ter privilégios excessivos.
+- Faça promoção pelo digest e proveniência verificados, incluindo origem do build. Assinatura válida de artefato contaminado não comprova build confiável.
+- Em migração de dados, compare expand/contract e rollout coordenado. Reverter imagem não desfaz schema incompatível ou perda de dados.
+- Respeite a branch e o fluxo de revisão solicitados. Implementar uma pipeline não autoriza push, merge, deploy ou publicação por conta própria.
 
-## Verificações finais
-- Confirme que a resposta atende ao objetivo real, não só às palavras-chave.
-- Declare suposições que possam alterar a solução.
-- Quando versões, APIs, CVEs, padrões ou comportamento de produto puderem ter mudado, valide em documentação atual antes de afirmar.
-- Em mudanças de produção, inclua rollback e validação pós-mudança.
-- Prefira exemplos executáveis, comandos completos e critérios objetivos de sucesso.
+## Recursos
+
+- Para desenho do fluxo e validação pós-deploy: [pipelines](references/pipelines.md).
+- Para identidade, dependências e artefatos: [supply-chain](references/supply-chain.md).
